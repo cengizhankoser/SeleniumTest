@@ -11,15 +11,26 @@ class InventoryPage(BasePage):
     def get_title(self):
         return self.get_text(self.title)
     
+    def get_button_text(self, button):
+        return button.text
+
+    def get_add_to_cart_buttons(self):
+        return self.find_elements(self.add_to_cart_button)
+    
     def add_item_to_cart(self):
         self.click(self.add_to_cart_button)
 
-    def add_random_items_to_cart(self, count):
+    def add_random_items_to_cart(self):
         buttons = self.find_elements(self.add_to_cart_button)
-        random_buttons = random.sample(buttons, count)
+        all_indices = list(range(len(buttons)))
+        count = random.randint(1, len(buttons))
+        selected_indices = random.sample(all_indices, count)
 
-        for button in random_buttons:
-            button.click()
+        for index in selected_indices:
+            buttons[index].click()
+
+        
+        return selected_indices
 
         
     def get_cart_badge_count(self):

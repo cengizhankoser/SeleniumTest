@@ -20,3 +20,7 @@ class BasePage:
 
     def get_text(self, locator):
         return self.find_element(locator).text
+    
+    def wait_for_text(self, element, text):
+        self.wait.until(lambda _: element.text == text)
+
