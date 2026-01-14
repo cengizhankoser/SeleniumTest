@@ -7,6 +7,8 @@ class CartPage(BasePage):
     item_name = (By.CLASS_NAME, "inventory_item_name")
     title = (By.CLASS_NAME, "title")
     continue_shopping_button = (By.ID, "continue-shopping")
+    cart_badge = (By.CLASS_NAME, "shopping_cart_badge")
+    cart_item = (By.CLASS_NAME, "cart_item")
 
 
     def get_item_name(self):
@@ -23,5 +25,11 @@ class CartPage(BasePage):
     
     def click_continue_shopping_button(self):
         self.click(self.continue_shopping_button)
+    
+    def get_cart_badge_count(self):
+        return self.get_text(self.cart_badge)
+    
+    def get_cart_item_count(self):
+        return len(self.find_elements(self.cart_item))
 
 

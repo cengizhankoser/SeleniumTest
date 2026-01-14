@@ -5,6 +5,7 @@ from pages.cart_page import CartPage
 from data.test_data import TestData
 
 
+"""
 
 def test_login_correct(driver):
     login_page = LoginPage(driver)
@@ -112,3 +113,33 @@ def test_continue_shopping_button(driver):
 
     assert TestData.inventory_html in driver.current_url
     assert inventory_page.get_title() == TestData.inventory_page_title
+"""
+
+def test_cart_page_remove_button(driver):
+    login_page = LoginPage(driver)
+    login_page.driver.get(TestData.base_url)
+    login_page.login(TestData.correct_username, TestData.correct_password)
+
+
+    inventory_page = InventoryPage(driver)
+    cart_page = CartPage(driver)
+    selected_indices = inventory_page.add_random_items_to_cart()
+    num_of_items_on_cart = len(selected_indices)
+    assert inventory_page.get_cart_badge_count() == str(num_of_items_on_cart)
+
+    inventory_page.click_cart_link()
+    
+    item_num_on_cart_page = cart_page.get_cart_item_count()
+    assert cart_page.get_cart_badge_count() == str(num_of_items_on_cart)
+    assert item_num_on_cart_page == num_of_items_on_cart 
+
+    cart_page.click_remove_button()
+    expected_count = num_of_items_on_cart - 1
+    current_items_count = cart_page.get_cart_item_count()
+    assert current_items_count == expected_count
+    assert cart_page.get_cart_badge_count() == str(expected_count)
+
+
+
+
+
