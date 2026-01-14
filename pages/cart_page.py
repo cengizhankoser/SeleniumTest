@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class CartPage(BasePage):
     remove_button = (By.XPATH, "//button[contains(@data-test,'remove-sauce-labs-')]")
@@ -31,5 +33,10 @@ class CartPage(BasePage):
     
     def get_cart_item_count(self):
         return len(self.find_elements(self.cart_item))
+    
+    def wait_until_cart_item_count_is(self, expected_count, timeout=5):
+        WebDriverWait(self.driver, timeout).until(
+            lambda driver: self.get_cart_item_count() == expected_count
+        )
 
 

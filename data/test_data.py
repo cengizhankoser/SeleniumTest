@@ -13,5 +13,6 @@ class TestData:
     cart_page_title = "Your Cart"
     inventory_html = "inventory.html"
     cart_html = "cart.html"
+    problem_username = "problem_user"
 
     

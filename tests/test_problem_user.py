@@ -4,46 +4,10 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from data.test_data import TestData
 
-
-
-"""
-def test_login_correct(driver):
-    login_page = LoginPage(driver)
-    inventory_page = InventoryPage(driver)
-    login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.correct_password)
-    assert TestData.inventory_html in driver.current_url
-    assert inventory_page.get_title() == TestData.inventory_page_title
-
-def test_login_wrong_username(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.wrong_username, TestData.correct_password)
-    assert TestData.error_message in login_page.get_error_message()
-
-def test_login_wrong_password(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.wrong_password)
-    assert TestData.error_message in login_page.get_error_message()
-
-def test_login_empty_username(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
-    login_page.login("",TestData.correct_password)
-    assert TestData.username_required in login_page.get_error_message()
-
-def test_login_empty_password(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username,"")
-    assert TestData.password_required in login_page.get_error_message()
-
-#Hem eklenen item sayısı sağ üstteki sepet'teki sayıyla aynı olup olmadığına, hem de add to cart butonuna basınca buton remove'a dönüşüp dönüşmediğine bakıyoruz.
 def test_add_random_items_to_cart(driver):
     login_page = LoginPage(driver)
     login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.correct_password)
+    login_page.login(TestData.problem_username, TestData.correct_password)
 
     inventory_page = InventoryPage(driver)
     selected_indices = inventory_page.add_random_items_to_cart()
@@ -59,7 +23,7 @@ def test_add_random_items_to_cart(driver):
 def test_remove_item_from_cart(driver):
     login_page = LoginPage(driver)
     login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.correct_password)
+    login_page.login(TestData.problem_username, TestData.correct_password)
 
     inventory_page = InventoryPage(driver)
     
@@ -89,7 +53,7 @@ def test_remove_item_from_cart(driver):
 def test_shopping_cart_link(driver):
     login_page = LoginPage(driver)
     login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.correct_password)
+    login_page.login(TestData.problem_username, TestData.correct_password)
 
     inventory_page = InventoryPage(driver)
     inventory_page.click_cart_link()
@@ -103,7 +67,7 @@ def test_shopping_cart_link(driver):
 def test_continue_shopping_button(driver):
     login_page = LoginPage(driver)
     login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.correct_password)
+    login_page.login(TestData.problem_username, TestData.correct_password)
 
     inventory_page = InventoryPage(driver)
     inventory_page.click_cart_link()
@@ -114,12 +78,11 @@ def test_continue_shopping_button(driver):
     assert TestData.inventory_html in driver.current_url
     assert inventory_page.get_title() == TestData.inventory_page_title
 
-"""
 
 def test_cart_page_remove_button(driver):
     login_page = LoginPage(driver)
     login_page.driver.get(TestData.base_url)
-    login_page.login(TestData.correct_username, TestData.correct_password)
+    login_page.login(TestData.problem_username, TestData.correct_password)
 
 
     inventory_page = InventoryPage(driver)
@@ -141,8 +104,3 @@ def test_cart_page_remove_button(driver):
     current_items_count = cart_page.get_cart_item_count()
     assert current_items_count == expected_count
     assert cart_page.get_cart_badge_count() == str(expected_count)
-
-
-
-
-
