@@ -38,3 +38,6 @@ class InventoryPage(BasePage):
     
     def click_cart_link(self):
         self.click(self.cart_link)
+
+    def is_cart_badge_present(self):
+        return len(self.driver.find_elements(*self.cart_badge)) > 0

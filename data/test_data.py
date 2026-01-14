@@ -7,3 +7,11 @@ class TestData:
     error_message = "Username and password do not match"
     username_required = "Username is required"
     password_required = "Password is required"
+    add_to_cart = "Add to cart"
+    remove_from_cart = "Remove"
+    inventory_page_title = "Products"
+    cart_page_title = "Your Cart"
+    inventory_html = "inventory.html"
+    cart_html = "cart.html"
+
+    

@@ -5,6 +5,9 @@ class CartPage(BasePage):
     remove_button = (By.XPATH, "//button[contains(@data-test,'remove-sauce-labs-')]")
     checkout_button = (By.ID, "checkout")
     item_name = (By.CLASS_NAME, "inventory_item_name")
+    title = (By.CLASS_NAME, "title")
+    continue_shopping_button = (By.ID, "continue-shopping")
+
 
     def get_item_name(self):
         return self.get_text(self.item_name)
@@ -14,4 +17,11 @@ class CartPage(BasePage):
     
     def click_checkout_button(self):
         self.click(self.checkout_button)
+    
+    def get_title(self):
+        return self.get_text(self.title)
+    
+    def click_continue_shopping_button(self):
+        self.click(self.continue_shopping_button)
+
 
