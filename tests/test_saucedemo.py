@@ -6,46 +6,35 @@ from data.test_data import TestData
 
 
 
-"""
-def test_login_correct(driver):
-    login_page = LoginPage(driver)
-    inventory_page = InventoryPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_login_correct(login_page):
+    
+    inventory_page = InventoryPage(login_page.driver)
+    
     login_page.login(TestData.correct_username, TestData.correct_password)
-    assert TestData.inventory_html in driver.current_url
+    assert TestData.inventory_html in inventory_page.get_current_url()
     assert inventory_page.get_title() == TestData.inventory_page_title
 
-def test_login_wrong_username(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_login_wrong_username(login_page):
     login_page.login(TestData.wrong_username, TestData.correct_password)
     assert TestData.error_message in login_page.get_error_message()
 
-def test_login_wrong_password(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_login_wrong_password(login_page):
     login_page.login(TestData.correct_username, TestData.wrong_password)
     assert TestData.error_message in login_page.get_error_message()
 
-def test_login_empty_username(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_login_empty_username(login_page):
     login_page.login("",TestData.correct_password)
     assert TestData.username_required in login_page.get_error_message()
 
-def test_login_empty_password(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_login_empty_password(login_page):
     login_page.login(TestData.correct_username,"")
     assert TestData.password_required in login_page.get_error_message()
 
 #Hem eklenen item sayısı sağ üstteki sepet'teki sayıyla aynı olup olmadığına, hem de add to cart butonuna basınca buton remove'a dönüşüp dönüşmediğine bakıyoruz.
-def test_add_random_items_to_cart(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_add_random_items_to_cart(login_page):
     login_page.login(TestData.correct_username, TestData.correct_password)
 
-    inventory_page = InventoryPage(driver)
+    inventory_page = InventoryPage(login_page.driver)
     selected_indices = inventory_page.add_random_items_to_cart()
     count = str(len(selected_indices))
 
@@ -56,12 +45,10 @@ def test_add_random_items_to_cart(driver):
     for index in selected_indices:
         assert current_buttons[index].text == TestData.remove_from_cart
 
-def test_remove_item_from_cart(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_remove_item_from_cart(login_page):
     login_page.login(TestData.correct_username, TestData.correct_password)
 
-    inventory_page = InventoryPage(driver)
+    inventory_page = InventoryPage(login_page.driver)
     
     selected_indices = inventory_page.add_random_items_to_cart()
     initial_count = len(selected_indices)
@@ -81,49 +68,42 @@ def test_remove_item_from_cart(driver):
     if expected_count > 0:
         assert inventory_page.get_cart_badge_count() == str(expected_count)
     else:
-        badges = driver.find_elements(*inventory_page.cart_badge)
-        assert len(badges) == 0
+        assert inventory_page.is_cart_badge_present() == False
 
 
 
-def test_shopping_cart_link(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_shopping_cart_link(login_page):
     login_page.login(TestData.correct_username, TestData.correct_password)
 
-    inventory_page = InventoryPage(driver)
+    inventory_page = InventoryPage(login_page.driver)
     inventory_page.click_cart_link()
 
-    cart_page = CartPage(driver)
+    cart_page = CartPage(login_page.driver)
 
-    assert TestData.cart_html in driver.current_url
+    assert TestData.cart_html in cart_page.get_current_url()
     assert cart_page.get_title() == TestData.cart_page_title
 
     
-def test_continue_shopping_button(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+def test_continue_shopping_button(login_page):
     login_page.login(TestData.correct_username, TestData.correct_password)
 
-    inventory_page = InventoryPage(driver)
+    inventory_page = InventoryPage(login_page.driver)
     inventory_page.click_cart_link()
 
-    cart_page = CartPage(driver)
+    cart_page = CartPage(login_page.driver)
     cart_page.click_continue_shopping_button()
 
-    assert TestData.inventory_html in driver.current_url
+    assert TestData.inventory_html in inventory_page.get_current_url()
     assert inventory_page.get_title() == TestData.inventory_page_title
 
-"""
 
-def test_cart_page_remove_button(driver):
-    login_page = LoginPage(driver)
-    login_page.driver.get(TestData.base_url)
+
+def test_cart_page_remove_button(login_page):
     login_page.login(TestData.correct_username, TestData.correct_password)
 
 
-    inventory_page = InventoryPage(driver)
-    cart_page = CartPage(driver)
+    inventory_page = InventoryPage(login_page.driver)
+    cart_page = CartPage(login_page.driver)
     selected_indices = inventory_page.add_random_items_to_cart()
     num_of_items_on_cart = len(selected_indices)
     assert inventory_page.get_cart_badge_count() == str(num_of_items_on_cart)

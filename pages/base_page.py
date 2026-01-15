@@ -23,4 +23,7 @@ class BasePage:
     
     def wait_for_text(self, element, text):
         self.wait.until(lambda _: element.text == text)
+        
+    def get_current_url(self):
+        return self.driver.current_url
 
